@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+// File: src/App.js
+import "./App.css";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom"; // ใช้ useNavigate
+import Login_page from "./pages/login";
+import Index_page from "./pages/index";
+import Layout from "./components/Layout";
 
 function App() {
+  const navigate = useNavigate(); // ใช้ useNavigate สำหรับการเปลี่ยนเส้นทาง
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // ตรวจสอบว่า token มีใน localStorage หรือไม่
+
+    if (!token) {
+      // ถ้าไม่มี token ให้เปลี่ยนเส้นทางไปหน้า login
+      console.log("Token is not present, redirecting to login...");
+      navigate("/login");
+    } else {
+      console.log("Token is present");
+    }
+  }, [navigate]); // useEffect จะทำงานเมื่อคอมโพเนนต์โหลด
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<Index_page />} />
+        <Route path="/login" element={<Login_page />} />
+      </Routes>
     </div>
   );
 }
