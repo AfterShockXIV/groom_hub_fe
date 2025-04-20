@@ -19,7 +19,8 @@ const RegisterPage = () => {
       {nextStep === "step2" && (
         <RegisStep2 emitData={checkemitData}></RegisStep2>
       )}
-      {/* <RegisStep2 emitData={checkemitData}></RegisStep2> */}
+
+    
     </Layout>
   );
 };
